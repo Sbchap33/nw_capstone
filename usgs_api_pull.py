@@ -30,11 +30,13 @@ def extract_values(obj, key):
     return results
 
 print(r_dumps)
-site_name=r_json["value"]["timeSeries"][0]["sourceInfo"]["siteName"]
-print(site_name)
 
-#print(r_json.keys())
-#print(extract_values(r_json, 'scope'))
-#print(extract_values(r_json, 'value'))
+######### cfs ########
+cfs=r_json["value"]["timeSeries"][0]["values"][0]["value"][0]["value"]
+print(cfs)
 
-#print(json_data)
+########## site name ##########
+
+#site_name=r_json["value"]["timeSeries"][0]["sourceInfo"]["siteName"]
+#print(site_name)
+
