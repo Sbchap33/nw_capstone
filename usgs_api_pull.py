@@ -29,14 +29,14 @@ def extract_values(obj, key):
     results = extract(obj, arr, key)
     return results
 
-print(r_dumps)
+######### date time ######## 
+time_pulled=r_json["value"]["queryInfo"]["note"][3]["value"]
+print(time_pulled)
+
+########## site name ##########
+site_name=r_json["value"]["timeSeries"][0]["sourceInfo"]["siteName"]
+print(site_name)
 
 ######### cfs ########
 cfs=r_json["value"]["timeSeries"][0]["values"][0]["value"][0]["value"]
 print(cfs)
-
-########## site name ##########
-
-#site_name=r_json["value"]["timeSeries"][0]["sourceInfo"]["siteName"]
-#print(site_name)
-
