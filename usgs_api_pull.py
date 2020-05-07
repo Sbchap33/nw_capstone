@@ -2,11 +2,39 @@
 
 import requests
 import json
+url = "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=09058000&parameterCd=00060,00065&siteStatus=all"
 
-def hello_world(request):
-        url = "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=09058000&parameterCd=00060,00065&siteStatus=all"
-        payload = {}
-        headers = {'Content-Type': 'application/json'}
-        response = requests.request("POST", url, headers=headers, data = payload)
-        json_data = json.loads(response.text)
-        print(json_data)
+r = requests.request("GET", url)
+r.encoding= 'JSON'
+r_json = json.loads(r.text)
+r_dumps=json.dumps(r_json, indent=4)
+
+def extract_values(obj, key):
+    """Pull all values of specified key from nested JSON."""
+    arr = []
+
+    def extract(obj, arr, key):
+        """Recursively search for values of key in JSON tree."""
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                if isinstance(v, (dict, list)):
+                    extract(v, arr, key)
+                elif k == key:
+                    arr.append(v)
+        elif isinstance(obj, list):
+            for item in obj:
+                extract(item, arr, key)
+        return arr
+
+    results = extract(obj, arr, key)
+    return results
+
+print(r_dumps)
+site_name=r_json["value"]["timeSeries"][0]["sourceInfo"]["siteName"]
+print(site_name)
+
+#print(r_json.keys())
+#print(extract_values(r_json, 'scope'))
+#print(extract_values(r_json, 'value'))
+
+#print(json_data)
