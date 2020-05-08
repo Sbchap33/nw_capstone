@@ -9,34 +9,39 @@ r.encoding= 'JSON'
 r_json = json.loads(r.text)
 r_dumps=json.dumps(r_json, indent=4)
 
-def extract_values(obj, key):
-    """Pull all values of specified key from nested JSON."""
-    arr = []
-
-    def extract(obj, arr, key):
-        """Recursively search for values of key in JSON tree."""
-        if isinstance(obj, dict):
-            for k, v in obj.items():
-                if isinstance(v, (dict, list)):
-                    extract(v, arr, key)
-                elif k == key:
-                    arr.append(v)
-        elif isinstance(obj, list):
-            for item in obj:
-                extract(item, arr, key)
-        return arr
-
-    results = extract(obj, arr, key)
-    return results
-
 ######### date time ######## 
-time_pulled=r_json["value"]["queryInfo"]["note"][3]["value"]
-print(time_pulled)
+time=r_json["value"]["queryInfo"]["note"][3]["value"]
+
+#update state with new time# 
+state=time
+#print(time)
 
 ########## site name ##########
 site_name=r_json["value"]["timeSeries"][0]["sourceInfo"]["siteName"]
-print(site_name)
+#print(site_name)
 
 ######### cfs ########
 cfs=r_json["value"]["timeSeries"][0]["values"][0]["value"][0]["value"]
-print(cfs)
+#print(cfs)
+
+## organize into one tuple ## 
+print(r_dumps)
+
+######## functino to organize response ###### 
+def assemble_response_json(data,state):
+    insert = {"kremmling"}
+    response_dict ={
+        "state": state,
+        "schema": {
+            "upper_c": {
+                "primary_key": [
+                    "time"]
+            }
+        },
+        "insert": insert,
+        "hasMore": False
+    }
+    #print(json.dumps(response_dict))
+    return json.dumps(response_dict)
+    
+#assemble_response_json()
