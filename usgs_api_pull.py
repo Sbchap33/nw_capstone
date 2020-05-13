@@ -14,34 +14,34 @@ time=r_json["value"]["queryInfo"]["note"][3]["value"]
 
 #update state with new time# 
 state=time
-#print(time)
+print(time)
 
 ########## site name ##########
 site_name=r_json["value"]["timeSeries"][0]["sourceInfo"]["siteName"]
-#print(site_name)
+print(site_name)
 
 ######### cfs ########
 cfs=r_json["value"]["timeSeries"][0]["values"][0]["value"][0]["value"]
-#print(cfs)
+print(cfs)
 
 ## organize into one tuple ## 
-print(r_dumps)
+#print(r_dumps)
 
 ######## functino to organize response ###### 
-def assemble_response_json(data,state):
-    insert = {"kremmling"}
-    response_dict ={
-        "state": state,
-        "schema": {
-            "upper_c": {
-                "primary_key": [
-                    "time"]
-            }
-        },
-        "insert": insert,
-        "hasMore": False
-    }
+#def assemble_response_json(data,state):
+#    insert = {"kremmling"}
+#    response_dict ={
+#        "state": state,
+#        "schema": {
+#            "upper_c": {
+#                "primary_key": [
+#                    "time"]
+#            }
+#        },
+#        "insert": insert,
+#        "hasMore": False
+#    }
     #print(json.dumps(response_dict))
-    return json.dumps(response_dict)
+#    return json.dumps(response_dict)
     
 #assemble_response_json()
