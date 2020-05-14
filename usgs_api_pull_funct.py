@@ -13,7 +13,10 @@ def main(request):
         #Call the data function
         data = request_historical_data(url)
         state=data["time"]
-        response = assemble_response_json(data,state)
+        time=data["time"]
+        site_name = data["site_name"]
+        cfs =data["cfs"]
+        response = assemble_response_json(time,site_name,cfs,state)
         headers ={"Content-Type": "application/json"}
         return flask.make_response(response,200,headers)
         
@@ -40,18 +43,18 @@ def request_historical_data(url_n):
     #print(cfs)
     ## organize into one tuple ## 
     data = {"time":time, "site_name":site_name, "cfs": cfs}
-    data = data.json()
     return data
     #print(data)
 
 ######## function to organize response ###### 
-def assemble_response_json(data_up, state_up):
+def assemble_response_json(time_up,site_name_up,cfs_up, state_up):
     response_dict ={
         "state": {
             "upper_c": state_up
         },
         "insert": {
-            "upper_c": data_up
+            "upper_c": 
+                {"time":time_up,"site_name":site_name_up,"cfs":cfs_up}
         },
         "schema": {
             "upper_c": {
@@ -62,12 +65,3 @@ def assemble_response_json(data_up, state_up):
     }
     #print(json.dumps(response_dict))
     return json.dumps(response_dict)
-
-main({
-    "state": {
-        "cursor": "2018-01-01T00:00:00Z"
-    },
-    "secrets": {
-        "apiToken": "abcdefghijklmnopqrstuvwxyz_0123456789"
-    }
-})
