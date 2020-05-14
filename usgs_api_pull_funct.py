@@ -7,14 +7,12 @@ import logging
 
 def main(request):
     try:
-        request = request.get_json() # handler method for flask object to Json
-        
+        #request = request.get_json() # handler method for flask object to Json
         # API specific inputs to function
         url = "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=09058000&parameterCd=00060,00065&siteStatus=all"
-        
         #Call the data function
         data = request_historical_data(url)
-        state=data["state"]
+        state=data["time"]
         response = assemble_response_json(data,state)
         headers ={"Content-Type": "application/json"}
         return flask.make_response(response,200,headers)
@@ -41,7 +39,8 @@ def request_historical_data(url_n):
     cfs=int(cfs)
     #print(cfs)
     ## organize into one tuple ## 
-    data = {"state":time, "site_name":site_name, "cfs": cfs}
+    data = {"time":time, "site_name":site_name, "cfs": cfs}
+    data = data.json()
     return data
     #print(data)
 
@@ -52,16 +51,23 @@ def assemble_response_json(data_up, state_up):
             "upper_c": state_up
         },
         "insert": {
-            "upper_c": 
-                data_up
-            },
+            "upper_c": data_up
+        },
         "schema": {
             "upper_c": {
-                "primary_key": "state"
+                "primary_key": ["time"]
             }
         },
         "hasMore": False
     }
-    print(json.dumps(response_dict))
-    #return json.dumps(response_dict)
+    #print(json.dumps(response_dict))
+    return json.dumps(response_dict)
 
+main({
+    "state": {
+        "cursor": "2018-01-01T00:00:00Z"
+    },
+    "secrets": {
+        "apiToken": "abcdefghijklmnopqrstuvwxyz_0123456789"
+    }
+})
