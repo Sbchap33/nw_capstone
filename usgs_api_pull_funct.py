@@ -15,7 +15,7 @@ def main(request):
         state=data["time"]
         time=data["time"]
         site_name = data["site_name"]
-        cfs =data["cfs"]
+        cfs =int(data["cfs"])
         response = assemble_response_json(time,site_name,cfs,state)
         headers ={"Content-Type": "application/json"}
         return flask.make_response(response,200,headers)
@@ -28,7 +28,6 @@ def request_historical_data(url_n):
     r = requests.request("GET", url_n)
     r.encoding= 'JSON'
     r_json = json.loads(r.text)
-    r_dumps=json.dumps(r_json, indent=4)
     ######### date time ######## 
     time=r_json["value"]["queryInfo"]["note"][3]["value"]
     #update state with new time# 
@@ -54,7 +53,7 @@ def assemble_response_json(time_up,site_name_up,cfs_up, state_up):
         },
         "insert": {
             "upper_c": 
-                {"time":time_up,"site_name":site_name_up,"cfs":cfs_up}
+                [{"time":time_up,"site_name":site_name_up,"cfs":cfs_up}]
         },
         "schema": {
             "upper_c": {
