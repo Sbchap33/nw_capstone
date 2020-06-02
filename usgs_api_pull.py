@@ -27,7 +27,7 @@ cfs=int(cfs)
 
 ## organize into one tuple ## 
 data = {"state":state, "site_name":site_name, "cfs": cfs}
-print(data)
+#print(data)
 
 ######## function to organize response ###### 
 def assemble_response_json(data_up, state_up):
@@ -42,7 +42,7 @@ def assemble_response_json(data_up, state_up):
         "insert": insert,
         "hasMore": False
     }
-    print(json.dumps(response_dict))
+    #print(json.dumps(response_dict))
     return json.dumps(response_dict)
     
 assemble_response_json(data,state)
