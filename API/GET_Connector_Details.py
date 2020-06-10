@@ -2,9 +2,9 @@ import requests
 import json
 import yaml
 
-url = "https://api.fivetran.com/v1/connectors/pampers_overnight"
+url = "https://api.fivetran.com/v1/connectors/{connector id}"
 
-conf = yaml.load(open('/home/ec2-user/environment/nw_capstone/API/Requirements.yml'))
+conf = yaml.load(open('{User Directory}/Requirements.yml'))
 basic = conf['key']['basic']
 
 payload  = {}
