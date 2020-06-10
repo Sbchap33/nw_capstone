@@ -21,4 +21,6 @@ Connect to Snowflake Warehouse: https://fivetran.com/docs/destinations/snowflake
 
 Once these are configured, data will now begin flowing from the function to the destination warehouse. The user changes the frequency of API calls in Fivetran's UI. The end result in Snowflake is the below table (note the automatically added Fivetran columns). 
 
+![image](https://user-images.githubusercontent.com/60025118/84286043-679bd300-aafb-11ea-8ac0-0716295abf33.png)
+
 ## Step 3 - Feed historical data into Snowflake warehouse
