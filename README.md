@@ -6,3 +6,5 @@ This project leverages Fivetran's connectors to build an ELT pipeline from the U
 ## Step 1 - Build Cloud Function
 
 A cloud function is built and deployed in GCP to call the USGS website to pull river data on a stretch of the Colorado River near Kremmling Colorado (commonly referred to as "Upper Colorado"). Specifically, the key piece of information is Cubic Feet per Second, or CFS, which provides information on the volume of water currently flowing (a popular metric used by rafters and anglers alike). 
+
+The code to be deployed in GCP (any cloud function service can be used) is: ```usgs_api_pull_funct.py```
