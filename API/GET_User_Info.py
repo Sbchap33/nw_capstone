@@ -5,7 +5,7 @@ import yaml
 conf = yaml.load(open('/home/ec2-user/environment/nw_capstone/API/Requirements.yml'))
 basic = conf['key']['basic']
 
-url = "https://api.fivetran.com/v1/users/space_involve"
+url = "https://api.fivetran.com/v1/users/{user id}"
 payload  = {}
 headers = {
   'Authorization': basic
