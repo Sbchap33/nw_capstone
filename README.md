@@ -34,4 +34,11 @@ Fivetran GSheets connector: https://fivetran.com/docs/files/google-sheets/change
 
 Now that I have new data being pushed into a database in Snowflake as well as two databases with historical data (different time period in each), I need to combine them into one master database which has all of the years combined. Fivetran makes this very easy to do through its transformation function in the UI. I deploy SQL code in Fivetran's transformation function that is triggered to run every time new data is written into Snowflake from the cloud function. This way, I maintain my separate tables for historic and new data from the cloud function, but then I also now have a combined table with all the data combined that is updated every time new data is written into the cloud function database. 
 
+The code to deploy in Fivetran's transformation UI is ```Transformation.sql```
+
 ![Transform](https://user-images.githubusercontent.com/60025118/84287807-9b77f800-aafd-11ea-9c5d-cee9a9251b0a.png)
+
+## Step 5 - Manipulate Fivetran connectors using REST API 
+
+Now that our pipeline is fully operational, there are a few ways that we can intereact with Fivetran using the REST API. Fivetran makes it very easy to get connector status, create or manipulate connector details, and edit/view users in our Fivetran account. 
+
