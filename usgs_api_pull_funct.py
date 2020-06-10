@@ -1,4 +1,4 @@
-# Base API pull for USGS # 
+# Base API pull for USGS - CFS # 
 
 import requests
 import json
