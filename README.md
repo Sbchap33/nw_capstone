@@ -46,7 +46,7 @@ Now that our pipeline is fully operational, there are a few ways that we can int
 ```GET_USGS_UpperC.py```
 This is not for interacting with Fivetran's API, but instead is for interacting with the USGS API. This is the raw data that is coming from the USGS API for which my cloud function is cleaning and sending off to Fivetran. I put this here just in case one wants to see the raw data coming from the USGS API. 
 
-### Retrieve User Details
+### Retrieve User Details /n
 https://fivetran.com/docs/rest-api/users#retrieveuserdetails
 ```GET_User_Info.py```
 Returns user information from Fivetran
