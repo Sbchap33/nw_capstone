@@ -32,7 +32,7 @@ Fivetran GSheets connector: https://fivetran.com/docs/files/google-sheets/change
 
 ## Step 4 - Create transformation in Fivetran's UI to create new combined historical/new database
 
-Now that I have new data being pushed into a database in Snowflake as well as two databases with historical data (different time period in each), I need to combine them into one master database which has all of the years combined. Fivetran makes this very easy to do through its transformation function in the UI. I deploy SQL code in Fivetran's transformation function that is triggered to run every time new data is written into Snowflake from the cloud function. This way, I maintain my separate tables for historic and new data from the cloud function, but then I also now have a combined table with all the data combined that is updated every time new data is written into the cloud function database. 
+Now that I have new data being pushed into a database in Snowflake as well as two databases with historical data (different time period in each), I need to combine them into one master database which has all of the years combined. Fivetran makes this very easy to do through its transformation function in the UI. I deploy SQL code in Fivetran's transformation function that is triggered to run every time new data is written into Snowflake from the cloud function. This way, I maintain my separate tables for historic and new data from the cloud function, but then I also now have a combined table with all of the data that is updated every time new data is written into the cloud function database. 
 
 The code to deploy in Fivetran's transformation UI is ```Transformation.sql```
 
@@ -40,5 +40,32 @@ The code to deploy in Fivetran's transformation UI is ```Transformation.sql```
 
 ## Step 5 - Manipulate Fivetran connectors using REST API 
 
-Now that our pipeline is fully operational, there are a few ways that we can intereact with Fivetran using the REST API. Fivetran makes it very easy to get connector status, create or manipulate connector details, and edit/view users in our Fivetran account. 
+Now that our pipeline is fully operational, there are a few ways that we can intereact with Fivetran using the REST API. Fivetran makes it very easy to get connector status, create or manipulate connector details, and edit/view users in our Fivetran account. The code for this is in the API folder in this repository. Note the Requirements.yml must have the correct key to access one's account. Note the changes one must make for the requirements.yml directory and their individual Fivetran User ID and Connector ID information in the code. 
+
+### Get USGS Details
+```GET_USGS_UpperC.py```
+This is not for interacting with Fivetran's API, but instead is for interacting with the USGS API. This is the raw data that is coming from the USGS API for which my cloud function is cleaning and sending off to Fivetran. I put this here just in case one wants to see the raw data coming from the USGS API. 
+
+### Retrieve User Details
+https://fivetran.com/docs/rest-api/users#retrieveuserdetails
+```GET_User_Info.py```
+Returns user information from Fivetran
+
+### List Connectors within a Group
+https://fivetran.com/docs/rest-api/groups#listallconnectorswithinagroup
+```GET_Group_Details.py```
+
+### Retrieve Connector Details
+https://fivetran.com/docs/rest-api/connectors#retrieveconnectordetails
+```GET_Connector_Details.py```
+
+### Retrieve Connector Schema Config
+https://fivetran.com/docs/rest-api/connectors#retrieveaconnectorschemaconfigbeta
+```GET_Schema.py```
+
+### Run Connector (initiate sync)
+https://fivetran.com/docs/rest-api/connectors#syncconnectordatabeta
+```POST_Sync_GCloud.py```
+
+
 
