@@ -24,3 +24,12 @@ Once these are configured, data will now begin flowing from the function to the 
 ![image](https://user-images.githubusercontent.com/60025118/84286043-679bd300-aafb-11ea-8ac0-0716295abf33.png)
 
 ## Step 3 - Feed historical data into Snowflake warehouse
+
+Now that the cloud function is pushing new data to Snowflake, I wanted to pull historical data into Snowflake to have a longer time-series for analysis. I could have done this through the API using the State variable for Fivetran to know where it left off, but again I wanted to simulate a "normal" ETL/ELT project which normally combines a few data sources. I pull historical data from the USGS into an AWS S3 bucket and a GSheets to highlight two common one-off upload methods through Fivetran. I then connect two new connectors to each source and the data is uploaded into unique databases in my Snowflake warehouse.
+
+Fivetran S3 connector: https://fivetran.com/docs/files/aws-s3
+Fivetran GSheets connector: https://fivetran.com/docs/files/google-sheets/changelog
+
+## Step 4 - Create transformation in Fivetran's UI to create new combined historical/new database
+
+Now that I have new data being pushed into a database in Snowflake as well as two databases with historical data (different time period in each), I need to combine them into one master database which has all of the years combined. Fivetran makes this very easy to do through its transformation function in the UI. I deploy SQL code in Fivetran's transformation function that is triggered to run every time new data is written into Snowflake from the cloud function. This way, I maintain my separate tables for historic and new data from the cloud function, but then I also now have a combined table with all the data combined that is updated every time new data is written into the cloud function database. 
