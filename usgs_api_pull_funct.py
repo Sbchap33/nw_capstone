@@ -1,4 +1,4 @@
-# Base API pull for USGS - CFS # 
+# Base API pull for USGS - River data (CFS) for Upper Colorado # 
 
 import requests
 import json
